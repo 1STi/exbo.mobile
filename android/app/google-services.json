@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "533653814298",
+    "project_id": "exbo-169122"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533653814298:android:df7d4309d77a7d89",
+        "android_client_info": {
+          "package_name": "com.exbo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533653814298-ombv5u2n0324fhb2ldufip9h7hjedg0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.exbo",
+            "certificate_hash": "b54cf746615794ad85bee7e145a02f95b97ccbaf"
+          }
+        },
+        {
+          "client_id": "533653814298-jlea3e8tdfeahvbs2ub5rlu84ps02cr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAanQda4eZKggVjmfkTfWQSUAWVM90UXnc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
