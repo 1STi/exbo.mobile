@@ -3,7 +3,8 @@ import React from 'react';
 import { 
   View, 
   Text, 
-  Modal, 
+  Modal,
+  TouchableOpacity, 
   TextInput 
 } from 'react-native';
 
@@ -44,7 +45,9 @@ const TagModal = (props) => {
       visible={props.modalIsOpen}
       multiline={true}
       onRequestClose={() => {console.log('modal closed')}}>
-      <View style={styles.modalLayer}>
+      <TouchableOpacity
+        onPress={props.setTagModal}
+        style={styles.modalLayer}>
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, props.isTagAlreadyCreated 
@@ -64,7 +67,7 @@ const TagModal = (props) => {
             </Text>
           : null
         }
-      </View>
+      </TouchableOpacity>
     </Modal>
   );
 };

@@ -74,10 +74,6 @@ class LoginScreen extends Component {
             Sign in with social media
           </Text>
           <LoginBtn
-            onPress={this.props.googleLogin}
-            type='google'
-            label='Sign in with Google' />
-          <LoginBtn
             onPress={this.props.facebookLogin}
             type='facebook'
             label='Sign in with Facebook' />

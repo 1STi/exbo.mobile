@@ -152,11 +152,13 @@ const styles = {
   tag: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '30%',
+    width: 'auto',
     height: 40,
     marginTop: 5,
     marginBottom: 5,
     marginRight: 7,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderRadius: 18
   },
   tagRow: {

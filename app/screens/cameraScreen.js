@@ -115,11 +115,12 @@ class CameraScreen extends Component {
   }
 
   saveMedia() {
-    if (this.state.isRecording) {
+    /*if (this.state.isRecording) {
       this.camera.stopCapture();
     } else {
       this.takePicture();
-    }
+    }*/
+    this.takePicture();
   }
 
   startTimeout() {
@@ -138,13 +139,17 @@ class CameraScreen extends Component {
         console.log(data);
       });
       this.setState({isRecording: true});
-    }, 3000);
+    }, 1000);
   }
 
 
   render() {
     return (
       <View style={styles.container}>
+        {this.state.isRecording 
+          ? <View />
+          : null
+        }
         <CameraComponent
           ref={(node) => this.camera = node}
           captureQuality={CameraComponent.constants.CaptureQuality.medium}
@@ -155,6 +160,7 @@ class CameraScreen extends Component {
         <Menu
           type='camera'
           changeFlashMode={this.changeFlashMode}
+          flash={this.state.flash}
           changeCameraTarget={this.changeCameraTarget}
           saveMedia={this.saveMedia}
           takePicture={this.takePicture}
@@ -170,6 +176,16 @@ const styles = {
   },
   camPreview: {
     flex: 1
+  },
+  recordWarning: {
+    position: 'absolute',
+    bottom: 75,
+    left: 5,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'red',
+    elevation: 3
   }
 };
 

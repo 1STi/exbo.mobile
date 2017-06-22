@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
+import Video from 'react-native-video';
 
 const horizontalMargin = 5;
 const slideWidth = 280;
@@ -90,9 +91,26 @@ class GalleryScreen extends Component {
     this.props.navigation.goBack();
   }
 
-  render() {
-    let imgUri = this.props.navigation.state.params.img;
+  renderSelectedMedia() {
+    if (this.state.selectedPhoto && this.state.selectedPhoto.substr(this.state.selectedPhoto.length - 4) === '.jpg') {
+      return (
+        <Image
+          source={{uri: this.state.selectedPhoto}} 
+          style={styles.fullImg} />
+      );
+    } else {
+      return (
+        <Video
+          ref={(ref: Video) => { this.video = ref }}
+          source={{uri: this.state.selectedPhoto}}
+          style={styles.fullVideo}
+          repeat={false}
+          resizeMode='cover' />
+      );
+    }
+  }
 
+  render() {
     return (
       <View style={styles.container}>
         <Image
@@ -111,9 +129,7 @@ class GalleryScreen extends Component {
           <View style={styles.ghostIcon} />
         </Image>
         <View style={styles.fullImgContainer}>
-          <Image
-            source={{uri: this.state.selectedPhoto}} 
-            style={styles.fullImg} />
+          {this.renderSelectedMedia()}
         </View>
         <FlatList
           data={this.state.photos}
@@ -175,6 +191,13 @@ const styles = {
     width: undefined,
     height: undefined,
     resizeMode: 'contain'
+  },
+  fullVideo: {
+    position: 'absolute',
+    top: 10,
+    left: 0,
+    right: 0,
+    height: '100%'
   },
   imgsList: {
     marginTop: 20,

@@ -176,13 +176,13 @@ const styles = {
   bookIcon: {
     width: 20,
     height: 20,
-    marginRight: 10,
+    marginRight: 15,
     resizeMode: 'cover'
   },
   icon: {
     width: 20,
     height: 20,
-    marginRight: 10,
+    marginRight: 15,
     resizeMode: 'contain'
   }
 };

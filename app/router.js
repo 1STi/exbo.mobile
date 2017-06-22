@@ -12,6 +12,9 @@ import CameraRollScreen from './screens/cameraRollScreen';
 import ImageInfo from './screens/imageInfo';
 import TagScreen from './screens/tagsScreen';
 import GalleryScreen from './screens/galleryScreen';
+import DeleteExboScreen from './screens/deleteExboScreen';
+import OrganizeScreen from './screens/organizeScreen';
+import DiscoverScreen from './screens/discoverScreen';
 
 const AuthStack = StackNavigator({
   Validate: {
@@ -66,6 +69,24 @@ const AuthStack = StackNavigator({
   },
   Gallery: {
     screen: GalleryScreen,
+    navigationOptions: {
+      headerVisible: false
+    }
+  },
+  DeleteExbo: {
+    screen: DeleteExboScreen,
+    navigationOptions: {
+      headerVisible: false
+    }
+  },
+  Organize: {
+    screen: OrganizeScreen,
+    navigationOptions: {
+      headerVisible: false
+    }
+  },
+  Discover: {
+    screen: DiscoverScreen,
     navigationOptions: {
       headerVisible: false
     }

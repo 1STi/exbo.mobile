@@ -4,6 +4,7 @@ import axios from 'axios';
 // Action Types
 const CREATE_FIRST_EXBO = 'exbo/gallery/CREATE_FIRST_EXBO';
 const SELECT_EXBO = 'exbo/gallery/SELECT_EXBO';
+const DELETE_EXBO = 'exbo/gallery/DELETE_EXBO';
 const SAVE_LAST_PICTURE = 'exbo/gallery/SAVE_LAST_PICTURE';
 const SAVE_PICTURE = 'exbo/gallery/SAVE_PICTURE';
 const UPDATE_PICTURE = 'exbo/gallery/UPDATE_PICTURE';
@@ -82,6 +83,19 @@ export default function (state = initialState, action) {
     });
     return Object.assign({}, state, {
       selectedExbo: selectedExbo
+    });
+  case DELETE_EXBO:
+    let exboDelete = state.exbos;
+    let exboDeleteUpdate;
+    exboDelete.map((exbo, index) => {
+      if (exbo.name === action.exboName) {
+        exboDelete.splice(index, 1);
+      }
+    });
+    return Object.assign({}, state, {
+      ...state,
+      selectedExbo: state.exbos[0].name,
+      exbos: exboDelete
     });
   case SAVE_LAST_PICTURE:
     return Object.assign({}, state, {
@@ -210,6 +224,13 @@ export const selectExbo = (exboName) => {
     type: SELECT_EXBO,
     exboName: exboName
   };
+};
+
+export const deleteExbo = (exboName) => {
+  return {
+    type: DELETE_EXBO,
+    exboName: exboName
+  }
 };
 
 export const favoritePicture = (photoInfo) => {

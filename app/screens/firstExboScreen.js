@@ -4,7 +4,8 @@ import {
   View,
   Text,
   Image,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -35,6 +36,8 @@ import MainBtn from '../components/mainBtn';
 import logo from '../../assets/exbo.png';
 import background from '../../assets/background.png';
 import book from '../../assets/book.png';
+import headerBc from '../../assets/bc-header.png';
+import arrow from '../../assets/arrow.png';
 
 class FirstExboScreen extends Component {
   constructor(props) {
@@ -49,6 +52,7 @@ class FirstExboScreen extends Component {
     this.validateExboName = this.validateExboName.bind(this);
     this.raiseError = this.raiseError.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
+    this.navigateBack = this.navigateBack.bind(this);
   }
 
   validateExboName() {
@@ -81,11 +85,39 @@ class FirstExboScreen extends Component {
     });
   }
 
+  navigateBack() {
+    this.props.navigation.navigate('Home');
+  }
+
+  renderHeader() {
+    return(
+      <Image
+        source={headerBc}
+        style={styles.header}>
+        <TouchableOpacity
+          onPress={this.navigateBack}
+          style={styles.menuIconContainer}>
+          <Image
+            source={arrow}
+            style={styles.menuIcon} />
+        </TouchableOpacity>
+        <Image 
+          source={logo} 
+          style={styles.exboLogo} />
+        <View style={styles.ghostIcon} />
+      </Image>
+    );
+  }
+
   render() {
     return (
       <Image
         source={background}
         style={styles.background}>
+        {this.props.isFirstExboCreated 
+          ? this.renderHeader()
+          : null
+        }
         <View style={styles.container}>
           <View style={styles.textContainer}>
             <Image 
@@ -176,6 +208,36 @@ const styles = {
     color: 'red',
     fontWeight: '600',
     fontSize: 15
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    height: 60,
+    paddingLeft: 10,
+    paddingRight: 10,
+    resizeMode: 'stretch',
+    elevation: 2
+  },
+  menuIconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 25,
+    height: 25
+  },
+  menuIcon: {
+    flex: 1,
+    resizeMode: 'contain'
+  },
+  ghostIcon: {
+    width: 30,
+    height: 30
+  },
+  exboLogo: {
+    width: '45%',
+    height: '50%',
+    resizeMode: 'contain'
   }
 };
 

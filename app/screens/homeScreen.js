@@ -17,6 +17,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { logout } from '../modules/auth-module';
 import {
   selectExbo,
+  deleteExbo,
   createTag,
   savePicture
 } from '../modules/gallery-module';
@@ -31,6 +32,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectExbo: (exboName) => {
       dispatch(selectExbo(exboName));
+    },
+    deleteExbo: (exboName) => {
+      dispatch(deleteExbo(exboName));
     },
     savePicture: (pictureInfo) => {
       dispatch(savePicture(pictureInfo));
@@ -83,6 +87,7 @@ class HomeScreen extends Component {
     this.cleanError = this.cleanError.bind(this);
     this.navigateTags = this.navigateTags.bind(this);
     this.openGallery = this.openGallery.bind(this);
+    this.navigateDelete = this.navigateDelete.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -165,6 +170,11 @@ class HomeScreen extends Component {
   logout() {
     this.props.logout();
     this.props.navigation.navigate('Login');
+  }
+
+  navigateDelete() {
+    //this.props.deleteExbo(this.props.selectedExbo);
+    this.props.navigation.navigate('DeleteExbo');
   }
 
   renderTags() {
@@ -329,8 +339,15 @@ class HomeScreen extends Component {
                 </View>
                 <MainBtn
                   type='galery'
-                  label='Import from galery'
+                  label='Import from gallery'
                   onPress={this.openGallery} />
+                {this.props.exbos.length > 1 
+                  ? <MainBtn
+                      type='galery'
+                      label='Delete this exbo'
+                      onPress={this.navigateDelete} />
+                  : null
+                }
               </View>
             </TouchableWithoutFeedback>
           </ScrollView>
@@ -429,7 +446,7 @@ const styles = {
     height: 110
   },
   tagText: {
-    fontFamily: 'Sriracha'
+    fontFamily: 'sriracha_regular'
   }
 };
 

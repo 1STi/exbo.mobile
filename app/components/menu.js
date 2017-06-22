@@ -12,7 +12,11 @@ import menuBckg from '../../assets/menuBckg.png';
 import wand from '../../assets/wand.png';
 import globe from '../../assets/globe.png';
 import frontCam from '../../assets/front-cam.png';
-import flashCam from '../../assets/flash-cam.png';
+import flashOn from '../../assets/flash-on.png';
+import flashOff from '../../assets/flash-off.png';
+import flashAuto from '../../assets/flash-auto.png';
+import capture from '../../assets/capture.png';
+import save from '../../assets/save-photo.png';
 
 const Menu = (props) => {
   
@@ -23,6 +27,29 @@ const Menu = (props) => {
       props.savePictureInfo();
     } else {
       props.navigation.navigate('Camera');
+    }
+  };
+
+  const changeFlashMode = () => {
+    switch(props.flash) {
+      case 'flash':
+        return flashOn;
+      case 'flash-off':
+        return flashOff;
+      case 'flash-auto':
+        return flashAuto;
+      default:
+        return null;
+    }
+  };
+
+  const chooseCenterIcon = () => {
+    if (props.type === 'camera' || props.type === 'home') {
+      console.log('camera');
+      return <Image source={capture} style={styles.camIcon} />
+    } else if(props.type === 'camera roll') {
+      console.log('camera roll');
+      return <Image source={save} style={styles.camIcon} />
     }
   };
 
@@ -37,16 +64,24 @@ const Menu = (props) => {
     };
   };
 
+  const navigateOrganize = () => {
+    props.navigation.navigate('Organize');
+  };
+
+  const navigateDiscover = () => {
+    props.navigation.navigate('Discover');
+  };
+
   const chooseLeftIcon = () => {
     if (props.type !== 'camera roll') {
       return (
         <TouchableOpacity
           onPress={props.type === 'camera' 
             ?  props.changeFlashMode 
-            : null}
+            : navigateOrganize}
           style={styles.smallIconContainer}>
           <Image
-            source={props.type === 'camera' ? flashCam : wand} 
+            source={props.type === 'camera' ? changeFlashMode() : wand} 
             style={styles.smallIcon} />
           {props.type !== 'camera' 
             ? <Text style={styles.label}>Organize</Text>
@@ -63,7 +98,7 @@ const Menu = (props) => {
         <TouchableOpacity
           onPress={props.type === 'camera' 
             ? props.changeCameraTarget 
-            : null}
+            : navigateDiscover}
           style={styles.smallIconContainer}>
           <Image
             source={props.type=== 'camera' ? frontCam : globe} 
@@ -86,9 +121,6 @@ const Menu = (props) => {
       {chooseLeftIcon()}
       <View style={styles.photoItem}>
         <TouchableOpacity
-          onPressIn={props.type === 'camera' 
-            ? props.startTimeout 
-            : null}
           onPress={props.type !== 'camera' 
             ? chooseNavigatePath 
             : null}
@@ -96,9 +128,7 @@ const Menu = (props) => {
             ? props.saveMedia
             : null}
           style={[styles.photoIconContainer, {width: 50, height: 50}]}>
-          <Text style={styles.photoIcon}>
-            X
-          </Text>
+          {chooseCenterIcon()}
         </TouchableOpacity>
         <Text style={[styles.label, {position: 'relative', bottom: 5}]}>
           {chooseNavigateText()}
@@ -131,9 +161,9 @@ const styles = {
     marginTop: 10
   },
   smallIcon: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain'
+    width: 40,
+    height: 40,
+    resizeMode: 'center'
   },
   photoItem: {
     alignItems: 'center'
@@ -143,8 +173,12 @@ const styles = {
     bottom: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 60/2,
-    backgroundColor: '#1D1C57'
+    borderRadius: 60/2
+  },
+  camIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25
   },
   photoIcon: {
     color: '#fff',
@@ -154,7 +188,7 @@ const styles = {
   label: {
     marginBottom: 5,
     color: '#1D1C57',
-    fontFamily: 'Open Sans Light',
+    fontFamily: 'opensans_light',
     fontSize: 14
   }
 };
